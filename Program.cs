@@ -628,20 +628,24 @@ namespace ISM6225_Assignment_2_Spring_2022
                 //Instantiating variable
                 int n = 3;
                 //Looping for the grid
-                for (int R = n - 2; R >= 0; --R)
+                int k = n - 2;
+                for (; k >= 0; )
                 {
-                    for (int C = 0; C < n; ++C)
+                    int C1 = 0;
+                    for (; C1 < n; )
                     {
 
                         // Storing the value with location in the grid
-                        int best = grid[R + 1, C];
+                        int best = grid[k + 1, C1];
                         // checking conditions and assigning in the value
-                        if (C > 0)
-                            best = Math.Min(best, grid[R + 1, C - 1]);
-                        if (C + 1 < n)
-                            best = Math.Min(best, grid[R + 1, C + 1]);
-                        grid[R, C] = grid[R, C] + best;
+                        if (C1 > 0)
+                            best = Math.Min(best, grid[k + 1, C1 - 1]);
+                        if (C1 + 1 < n)
+                            best = Math.Min(best, grid[k + 1, C1 + 1]);
+                        grid[k, C1] = grid[k, C1] + best;
+                        ++C1;
                     }
+                    --k;
                 }
 
                 int ans = int.MaxValue;
