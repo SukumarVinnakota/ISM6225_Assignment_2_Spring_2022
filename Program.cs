@@ -255,18 +255,25 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                //write your code here.
+                //creating a new integer
                 int ans = 0;
+                //sorting the array
                 Array.Sort(arr);
+                //Looping the array
                 for (int i = arr.Length - 1; i >= 0; i--)
                 {
+                    //incrementing the integer
                     ans++;
+                    //checking if the pointer is equal to zero or the adjcent values are not equal
                     if (i == 0 || arr[i] != arr[i - 1])
                     {
+                        //checking if the value of new integer is equal to the value in the arraylist
                         if (ans == arr[i])
                         {
+                            //returns the integer value
                             return ans;
                         }
+                        //instantiating the value to zero
                         ans = 0;
                     }
                 }
@@ -304,28 +311,35 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                //write your code here.
-                int bulls = 0;
-                int cows = 0;
-                int[] sec = new int[10];
-                int[] gue = new int[10];
+                //instantiating variables and integer arrays.
+                int c = 0;
+                int d = 0;
+                int[] a = new int[10];
+                int[] b = new int[10];
+
+                //Iterating the Secret String
                 for (int i = 0; i < secret.Length; i++)
                 {
+                    //checking if the first position in secret and guess are same
                     if (secret[i] == guess[i])
                     {
-                        bulls++;
+                        //incrementing bulls
+                        c++;
                     }
                     else
                     {
-                        sec[secret[i] - '0']++;
-                        gue[guess[i] - '0']++;
+                        a[secret[i] - '0']++;
+                        b[guess[i] - '0']++;
                     }
                 }
-                for (int i = 0; i < sec.Length; i++)
+                //iterating the sec array
+                for (int i = 0; i < a.Length; i++)
                 {
-                    cows += Math.Min(sec[i], gue[i]);
+                    //setting the cows 
+                    d += Math.Min(a[i], b[i]);
                 }
-                return bulls + "A" + cows + "B";
+                //returning the String
+                return c + "A" + d + "B";
             }
             catch (Exception)
             {
@@ -354,13 +368,11 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                if (s == null || s.Length == 0)
-                {
-                    return null;
-                }
+                
+                //instantiating the list and int array
                 List<int> list = new List<int>();
-                int[] map = new int[26];  // record the last index of the each char
-
+                int[] map = new int[26];  
+                //iterating each position in the input string
                 for (int i = 0; i < s.Length; i++)
                 {
                     map[s[i] - 'a'] = i;
@@ -368,15 +380,20 @@ namespace ISM6225_Assignment_2_Spring_2022
                 // record the end index of the current sub string
                 int last = 0;
                 int start = 0;
+                //iterating each position in the input string
                 for (int i = 0; i < s.Length; i++)
                 {
+                    //storing the last value with maximum in the map list
                     last = Math.Max(last, map[s[i] - 'a']);
+                    //checking if the last value is equal to the value of i
                     if (last == i)
                     {
+                        //Adding to the list
                         list.Add(last - start + 1);
                         start = last + 1;
                     }
                 }
+                //return the list
                 return list;
             }
             catch (Exception)
@@ -420,22 +437,30 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                int cLines = 1;
-                int cChCurrentLine = 0;
+                //Instanstiating the variables and list
+                int a = 1;
+                int b = 0;
                 List<int> final = new List<int>();
+                //iterating the input array
                 for (int i = 0; i < widths.Length; i++)
                 {
+                    //instantiating the char value with character in the string
                     char c = s[i];
-                    cChCurrentLine += widths[c - 'a'];
-                    if (cChCurrentLine > 100)
+                    //gets the value from that position
+                    b += widths[c - 'a'];
+                    //checks the value is grater than 100
+                    if (b > 100)
                     {
-                        cLines++;
-                        cChCurrentLine = widths[c - 'a'];
+                        //incrementing a
+                        a++;
+                        //instantiating b
+                        b = widths[c - 'a'];
                     }
                 }
-                final.Add(cLines);
-                final.Add(cChCurrentLine);
-
+                //Storing a and b
+                final.Add(a);
+                final.Add(b);
+                //return final
                 return final;
             }
             catch (Exception)
@@ -473,37 +498,37 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                //write your code here.
-                Stack<char> leftSymbols = new Stack<char>();
+                //Create Stack for storing the brackets
+                Stack<char> sy = new Stack<char>();
                 // Loop for each character of the string
                 foreach (char c in bulls_string10.ToCharArray())
                 {
                     // If left symbol is encountered
                     if (c == '(' || c == '{' || c == '[')
                     {
-                        leftSymbols.Push(c);
+                        sy.Push(c);
                     }
                     // If right symbol is encountered
-                    else if (c == ')' && leftSymbols.Count != 0 && leftSymbols.Peek() == '(')
+                    else if (c == ')' && sy.Count != 0 && sy.Peek() == '(')
                     {
-                        leftSymbols.Pop();
+                        sy.Pop();
                     }
-                    else if (c == '}' && leftSymbols.Count != 0 && leftSymbols.Peek() == '{')
+                    else if (c == '}' && sy.Count != 0 && sy.Peek() == '{')
                     {
-                        leftSymbols.Pop();
+                        sy.Pop();
                     }
-                    else if (c == ']' && leftSymbols.Count != 0 && leftSymbols.Peek() == '[')
+                    else if (c == ']' && sy.Count != 0 && sy.Peek() == '[')
                     {
-                        leftSymbols.Pop();
+                        sy.Pop();
                     }
                     // If none of the valid symbols is encountered
                     else
                     {
-                        return false; ;
+                        return false; 
                     }
 
                 }
-                return leftSymbols.Count==0;
+                return sy.Count==0;
             }
             catch (Exception)
             {
@@ -544,9 +569,30 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                //write your code here.
-
-                return 0;
+                //instantiating mapping with moorse code
+                String[] mpper = { ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.." };
+                //instantiating hashset
+                HashSet<String> set = new HashSet<String>();
+                //iterating each word in the words
+                foreach (String word in words)
+                {
+                    String s = "";
+                    char[] ch = new char[word.Length];
+                    //iterating word value in character array
+                    for (int i = 0; i < word.Length; i++)
+                    {
+                        ch[i] = word[i];
+                    }
+                    //iterating characters and storing in string
+                    foreach (char c in ch)
+                    {
+                        s = s + mpper[c - 'a'];
+                    }
+                    //adding the string to hashset 
+                    set.Add(s);
+                }
+                //returning the count
+                return set.Count;
             }
             catch (Exception)
             {
@@ -577,15 +623,17 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                //write your code here.
+                //Instantiating variable
                 int n = 3;
+                //Looping for the grid
                 for (int R = n - 2; R >= 0; --R)
                 {
                     for (int C = 0; C < n; ++C)
                     {
 
-                        // best = min(A[R+1,C-1], A[R+1,C], A[R+1,C+1])
+                        // Storing the value with location in the grid
                         int best = grid[R + 1, C];
+                        // checking conditions and assigning in the value
                         if (C > 0)
                             best = Math.Min(best, grid[R + 1, C - 1]);
                         if (C + 1 < n)
@@ -595,8 +643,10 @@ namespace ISM6225_Assignment_2_Spring_2022
                 }
 
                 int ans = int.MaxValue;
+                //iterating the loop and storing the minimum value by comparing max int value with value in multi dim array 
                 for (int i = 0; i < n; ++i)
                     ans = Math.Min(ans, grid[0, i]);
+                //returuning the output
                 return ans;
             }
             catch (Exception)
@@ -631,8 +681,28 @@ namespace ISM6225_Assignment_2_Spring_2022
         {
             try
             {
-                //write your code here.
-                return 0;
+                //instantiating matrix
+                int a = word2.Length + 1;
+                //instantiating multi dim array
+                int[,] d = new int[word1.Length + 1, word2.Length + 1];
+                d[0, 0] = 0;
+                //stroring values in rows of multi dim array
+                for (int i = 1; i <= word1.Length; i++) d[i, 0] = i;
+                for (int j = 1; j <= word2.Length; j++) d[0, j] = j;
+                //iterating with first word count 
+                for (int i = 1; i <= word1.Length; i++)
+                {
+                    //iterating with second word count
+                    for (int j = 1; j <= word2.Length; j++)
+                    {
+                        //comparing if first character in word1 is equal to the first character in word2
+                        if (word1[i - 1] == word2[j - 1]) d[i, j] = d[i - 1, j - 1];
+                        //else stroting the minmum value in the multi dim array
+                        else d[i, j] = Math.Min(Math.Min(d[i - 1, j], d[i, j - 1]), d[i - 1, j - 1]) + 1;
+                    }
+                }
+                //returning the minimum number of operations
+                return d[word1.Length, word2.Length];
 
             }
             catch (Exception)
