@@ -199,7 +199,7 @@ namespace ISM6225_Assignment_2_Spring_2022
                 //Adding the values in list of string without special characters
                 foreach (var s in li)
                 {
-                    inputs.Add(Regex.Replace(s.Trim(), "[!@#$%^&*(),.?:{ }|<>]", "", RegexOptions.Compiled));
+                    inputs.Add(Regex.Replace(s.Trim(), "[!@#$%^&*(),.?:{ }|<>]", ""));
                 }
                 //Creating a Dictonary which has key value pairs
                 Dictionary<string, int> counts = new Dictionary<string, int>();
@@ -260,7 +260,8 @@ namespace ISM6225_Assignment_2_Spring_2022
                 //sorting the array
                 Array.Sort(arr);
                 //Looping the array
-                for (int i = arr.Length - 1; i >= 0; i--)
+                int i = arr.Length - 1;
+                for (; i >= 0; )
                 {
                     //incrementing the integer
                     ans++;
@@ -276,6 +277,7 @@ namespace ISM6225_Assignment_2_Spring_2022
                         //instantiating the value to zero
                         ans = 0;
                     }
+                    i--;
                 }
                 return -1;
             }
